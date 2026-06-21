@@ -711,39 +711,7 @@ function NavBar({ tab, onTab, favCount }) {
     </div>
   );
 }
-/* ─────────────────────────────────────────────
-   RESET
-───────────────────────────────────────────── */
-export default function App() {
-  const resetApp = () => {
-    localStorage.clear()
-    window.location.reload()
-  }
 
-  return (
-    <div>
-      <h1>Eetplan</h1>
-
-      {/* je swipe UI hier */}
-
-      <button
-        onClick={resetApp}
-        style={{
-          position: "fixed",
-          bottom: 20,
-          left: 20,
-          padding: 10,
-          background: "red",
-          color: "white",
-          border: "none",
-          borderRadius: 8,
-        }}
-      >
-        Reset app
-      </button>
-    </div>
-  )
-}
 /* ─────────────────────────────────────────────
    HEADER
 ───────────────────────────────────────────── */
@@ -850,6 +818,28 @@ export default function App() {
             : <FavoritesScreen favorites={favorites} onRemove={handleRemove} />
           }
         </div>
+         <button
+  onClick={() => {
+    localStorage.clear();
+    setDeck(RECIPES);
+    setFavorites([]);
+    setTab("swipe");
+  }}
+  style={{
+    position: "fixed",
+    bottom: 80,
+    right: 16,
+    padding: "10px 12px",
+    borderRadius: 12,
+    border: "none",
+    background: "red",
+    color: "white",
+    fontWeight: "bold",
+    zIndex: 999,
+  }}
+>
+  Reset
+</button>
 
         <NavBar tab={tab} onTab={setTab} favCount={favorites.length} />
       </div>
