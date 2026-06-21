@@ -25,29 +25,7 @@ const T = {
 /* ─────────────────────────────────────────────
    MOCK DATA  (20 recipes, Dutch labels)
 ───────────────────────────────────────────── */
-const RECIPES = [
-  { id:  1, title: "Avocado Toast met Gepocheerd Ei",    image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=700&q=85", cookTime: "10 min", difficulty: "Makkelijk", kcal: 320, tags: ["vegetarisch","snel","gezond"] },
-  { id:  2, title: "Thaise Groene Curry",                image: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=700&q=85", cookTime: "30 min", difficulty: "Gemiddeld", kcal: 480, tags: ["pittig","vegan"] },
-  { id:  3, title: "Margherita Pizza",                   image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=85", cookTime: "25 min", difficulty: "Gemiddeld", kcal: 560, tags: ["vegetarisch","oven","klassiek"] },
-  { id:  4, title: "Zalm Poké Bowl",                     image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&q=85", cookTime: "15 min", difficulty: "Makkelijk", kcal: 420, tags: ["gezond","snel","vis"] },
-  { id:  5, title: "Franse Omelette",                    image: "https://images.unsplash.com/photo-1510693206972-df098062cb71?w=700&q=85", cookTime:  "8 min", difficulty: "Makkelijk", kcal: 280, tags: ["vegetarisch","snel","ontbijt"] },
-  { id:  6, title: "Taco's al Pastor",                   image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=700&q=85", cookTime: "40 min", difficulty: "Gemiddeld", kcal: 510, tags: ["pittig","vlees"] },
-  { id:  7, title: "Paddenstoelen Risotto",               image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=700&q=85", cookTime: "45 min", difficulty: "Moeilijk",  kcal: 490, tags: ["vegetarisch","comfort","oven"] },
-  { id:  8, title: "Acai Ontbijtbowl",                   image: "https://images.unsplash.com/photo-1490323914169-4b5bc9cc4f9b?w=700&q=85", cookTime:  "5 min", difficulty: "Makkelijk", kcal: 310, tags: ["vegan","gezond","snel"] },
-  { id:  9, title: "Spaghetti Carbonara",                image: "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=700&q=85", cookTime: "20 min", difficulty: "Gemiddeld", kcal: 620, tags: ["klassiek","snel"] },
-  { id: 10, title: "Shakshuka",                          image: "https://images.unsplash.com/photo-1529042410759-befb1204b468?w=700&q=85", cookTime: "25 min", difficulty: "Makkelijk", kcal: 340, tags: ["vegetarisch","pittig","ontbijt"] },
-  { id: 11, title: "Chicken Tikka Masala",               image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=700&q=85", cookTime: "50 min", difficulty: "Moeilijk",  kcal: 530, tags: ["pittig","vlees"] },
-  { id: 12, title: "Griekse Salade",                     image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=700&q=85", cookTime: "10 min", difficulty: "Makkelijk", kcal: 240, tags: ["vegetarisch","gezond","snel"] },
-  { id: 13, title: "Miso Ramen",                         image: "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=700&q=85", cookTime: "35 min", difficulty: "Gemiddeld", kcal: 570, tags: ["comfort","warm"] },
-  { id: 14, title: "Bananenpannenkoeken",                image: "https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=700&q=85", cookTime: "20 min", difficulty: "Makkelijk", kcal: 380, tags: ["vegetarisch","ontbijt","zoet"] },
-  { id: 15, title: "Caprese Salade",                     image: "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=700&q=85", cookTime:  "5 min", difficulty: "Makkelijk", kcal: 290, tags: ["vegetarisch","snel","gezond"] },
-  { id: 16, title: "Pulled Pork Sliders",                image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=700&q=85", cookTime:  "4 uur", difficulty: "Moeilijk",  kcal: 680, tags: ["vlees","comfort","oven"] },
-  { id: 17, title: "Groenten Roerbak",                   image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=700&q=85", cookTime: "15 min", difficulty: "Makkelijk", kcal: 280, tags: ["vegan","snel","gezond"] },
-  { id: 18, title: "Citroen Taarttje",                   image: "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=700&q=85", cookTime:  "1 uur", difficulty: "Moeilijk",  kcal: 420, tags: ["vegetarisch","zoet","dessert","oven"] },
-  { id: 19, title: "Pesto Pasta",                        image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=700&q=85", cookTime: "15 min", difficulty: "Makkelijk", kcal: 540, tags: ["vegetarisch","snel","klassiek"] },
-  { id: 20, title: "Bosbessen Smoothie Bowl",            image: "https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=700&q=85", cookTime:  "5 min", difficulty: "Makkelijk", kcal: 290, tags: ["vegan","gezond","snel","ontbijt"] },
-];
-
+const RECIPES = recipes
 /* ─────────────────────────────────────────────
    TAG COLOUR MAP
 ───────────────────────────────────────────── */
