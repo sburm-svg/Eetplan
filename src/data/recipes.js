@@ -1,4 +1,4 @@
-export const recipes = [
+export const recipes = 
   [
   {
     "id": 1,
@@ -316,5 +316,5 @@ export const recipes = [
       { "name": "wraps", "amount": "4 stuks" }
     ]
   }
-]
+
 ]
