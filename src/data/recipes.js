@@ -1,5 +1,4 @@
 export const recipes = 
-  [
   {
     "id": 1,
     "title": "Pasta pesto kip",
@@ -317,4 +316,3 @@ export const recipes =
     ]
   }
 
-]
