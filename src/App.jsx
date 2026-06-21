@@ -711,7 +711,39 @@ function NavBar({ tab, onTab, favCount }) {
     </div>
   );
 }
+/* ─────────────────────────────────────────────
+   RESET
+───────────────────────────────────────────── */
+export default function App() {
+  const resetApp = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
 
+  return (
+    <div>
+      <h1>Eetplan</h1>
+
+      {/* je swipe UI hier */}
+
+      <button
+        onClick={resetApp}
+        style={{
+          position: "fixed",
+          bottom: 20,
+          left: 20,
+          padding: 10,
+          background: "red",
+          color: "white",
+          border: "none",
+          borderRadius: 8,
+        }}
+      >
+        Reset app
+      </button>
+    </div>
+  )
+}
 /* ─────────────────────────────────────────────
    HEADER
 ───────────────────────────────────────────── */
