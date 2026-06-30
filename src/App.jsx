@@ -930,8 +930,4 @@ export default function App() {
     </>
   );
 }
-ENDOFFILE
-echo "App.jsx written"
-Output
 
-App.jsx written
