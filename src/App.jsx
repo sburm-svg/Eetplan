@@ -3,7 +3,10 @@ import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { RECIPES, TAG_STYLE, DIFF_COLOR } from "./data/recipes.js";
 
 const [onboardingDone, setOnboardingDone] = useState(false);
-
+const filteredRecipes = RECIPES.filter(recipe => {
+  return selectedTags.length === 0
+    ? true
+    : selectedTags.some(tag => recipe.tags.includes(tag));
 const [preferences, setPreferences] = useState({
   goal: null,        // healthy | weight_loss | muscle | quick
   diet: null,        // vegan | vegetarian | none
@@ -626,6 +629,7 @@ function NutritionStat({ label, value, unit, color }) {
 ───────────────────────────────────────────── */
 function RecipeDetail({ recipe, isFavorite, onClose, onToggleFavorite, closing }) {
   const scrollRef = useRef(null);
+  
 
   // reset scroll position whenever a new recipe opens
   useEffect(() => {
@@ -863,7 +867,10 @@ function SectionTitle({ children }) {
 ───────────────────────────────────────────── */
 export default function App() {
   const [tab,           setTab]           = useState("swipe");
-  const [deck,           setDeck]          = useState(RECIPES);
+  const [deck, setDeck] = useState([]);
+  useEffect(() => {
+  setDeck(filteredRecipes);
+}, [filteredRecipes]);
   const [favorites,      setFavorites]     = useState([]);
   const [activeRecipe,   setActiveRecipe]  = useState(null); // recipe object or null
   const [detailClosing,  setDetailClosing] = useState(false);
