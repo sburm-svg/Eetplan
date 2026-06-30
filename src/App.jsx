@@ -938,6 +938,24 @@ export default function App() {
       )}
     </>
   );
+  const filteredRecipes = useMemo(() => {
+  return RECIPES.filter(r => {
+    if (preferences.maxTime) {
+      const minutes = parseInt(r.cookTime);
+      if (!isNaN(minutes) && minutes > preferences.maxTime) return false;
+    }
+
+    if (preferences.diet === "vegetarian" && !r.tags.includes("vegetarisch")) {
+      return false;
+    }
+
+    if (preferences.diet === "vegan" && !r.tags.includes("vegan")) {
+      return false;
+    }
+
+    return true;
+  });
+}, [preferences]);
   
 }
 
