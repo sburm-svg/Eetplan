@@ -567,9 +567,4 @@ export const DIFF_COLOR = {
   Makkelijk: "#2D9B6F",
   Gemiddeld: "#F5A623",
   Moeilijk:  "#D84040",
-};
-ENDOFFILE
-echo "recipes.js written"
-Output
-
-recipes.js written
+}
