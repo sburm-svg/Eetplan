@@ -2,6 +2,15 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { RECIPES, TAG_STYLE, DIFF_COLOR } from "./data/recipes.js";
 
+const [onboardingDone, setOnboardingDone] = useState(false);
+
+const [preferences, setPreferences] = useState({
+  goal: null,        // healthy | weight_loss | muscle | quick
+  diet: null,        // vegan | vegetarian | none
+  maxTime: null,     // 10 | 20 | 30
+  servings: 2,
+});
+
 /* ─────────────────────────────────────────────
    DESIGN TOKENS
 ───────────────────────────────────────────── */
