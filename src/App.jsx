@@ -51,11 +51,19 @@ export default function App() {
     try { localStorage.setItem(PREFS_KEY, JSON.stringify(preferences)); } catch { /* ignore */ }
   }, [preferences]);
 
-  const handleSwipe = useCallback((id, dir) => {
-  setDeck(prev => {
-    const swiped = prev.find(r => r.id === id);
-    if (swiped) setLastSwiped(swiped); // 👈 bewaren voor undo
-    return prev.filter(r => r.id !== id);
+ const handleSwipe = useCallback((id, dir) => {
+  const swiped = deck.find(r => r.id === id);
+  if (swiped) setLastSwiped(swiped);
+
+  popRecipe(id);
+
+  if (dir === "right") {
+    const recipe = allRecipes.find(r => r.id === id);
+    if (recipe) {
+      toggleFavorite(recipe.id);
+    }
+  }
+}, [deck, popRecipe, allRecipes, toggleFavorite]);
   });
 
   if (dir === "right") {
