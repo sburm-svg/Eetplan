@@ -50,17 +50,24 @@ export default function App() {
     if (!preferences) return;
     try { localStorage.setItem(PREFS_KEY, JSON.stringify(preferences)); } catch { /* ignore */ }
   }, [preferences]);
-const handleSwipe = useCallback((id, dir) => {
+
+  const handleSwipe = useCallback((id, dir) => {
   const swiped = deck.find(r => r.id === id);
-  // Voeg het recept toe aan de geschiedenis-lijst
-  if (swiped) setSwipedHistory(prev => [...prev, swiped]);
+  
+  // VOEG TOE AAN DE ARRAY: in plaats van setLastSwiped(swiped)
+  if (swiped) {
+    setSwipedHistory(prev => [...prev, swiped]);
+  }
 
   popRecipe(id);
 
   if (swiped && dir === "right") {
     toggleFavorite(swiped.id);
   }
-}, [deck, popRecipe, toggleFavorite]);
+}, [deck, popRecipe, toggleFavorite]); // Merk op: setSwipedHistory hoeft niet in de dependency array omdat het een state-setter is
+  
+  
+  
   
       
 
