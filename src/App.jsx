@@ -64,7 +64,7 @@ export default function App() {
     }
   }
 }, [deck, popRecipe, allRecipes, toggleFavorite]);
-  });
+  };
 
   if (dir === "right") {
     const recipe = RECIPES.find(r => r.id === id);
