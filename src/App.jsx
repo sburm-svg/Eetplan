@@ -57,20 +57,12 @@ export default function App() {
 
   popRecipe(id);
 
-  if (dir === "right") {
-    const recipe = allRecipes.find(r => r.id === id);
+ 
     if (recipe) {
       toggleFavorite(recipe.id);
     }
-  }
-}, [deck, popRecipe, allRecipes, toggleFavorite]);
+  }, [deck, popRecipe, allRecipes, toggleFavorite]);
   };
-
-  if (dir === "right") {
-    const recipe = RECIPES.find(r => r.id === id);
-    if (recipe) {
-      setFavorites(prev =>
-        prev.some(r => r.id === id) ? prev : [...prev, recipe]
       );
 
   const openDetail = useCallback((recipe) => {
