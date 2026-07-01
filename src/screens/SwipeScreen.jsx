@@ -3,7 +3,7 @@ import { T } from "../theme.js";
 import SwipeCard from "../components/SwipeCard.jsx";
 import ActionButton from "../components/ActionButton.jsx";
 
-export default function SwipeScreen({ deck, onSwipe, onOpenDetail, lastSwiped, setLastSwiped, setDeck }) {
+export default function SwipeScreen({ deck, onSwipe, onOpenDetail, lastSwiped, setLastSwiped, pushRecipe }) {
 
   const topCardRef = useRef(null);
 
@@ -51,15 +51,20 @@ export default function SwipeScreen({ deck, onSwipe, onOpenDetail, lastSwiped, s
         <ActionButton icon="✕" label="Overslaan" color={T.red} onClick={() => triggerBtn("left")} disabled={deck.length === 0} />
         <ActionButton icon="♥" label="Bewaren" color={T.green} onClick={() => triggerBtn("right")} disabled={deck.length === 0} />
         <ActionButton
+
   icon="↩️"
   label="Terug"
   color={T.sand}
   onClick={() => {
     if (!lastSwiped) return;
 
-    setDeck(prev => [lastSwiped, ...prev]);
-    setLastSwiped(null);
+    pushRecipe(lastSwiped); // <-- Gebruik de nieuwe veilige functie!
+    setLastSwiped(null);    // Reset de lastSwiped state zodat je niet oneindig kunt teruggaan
   }}
+  disabled={!lastSwiped}
+/>
+  }}
+          
   disabled={!lastSwiped}
 />
       </div>
