@@ -41,6 +41,7 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [activeRecipe, setActiveRecipe] = useState(null);
   const [detailClosing, setDetailClosing] = useState(false);
+  const [lastSwiped, setLastSwiped] = useState(null);
 
   const { deck, popRecipe } = useRecipes(preferences ?? {});
   const { favorites, isFavorite, addFavorite, removeFavorite, toggleFavorite } = useFavorites(allRecipes);
