@@ -43,7 +43,7 @@ export default function App() {
   const [detailClosing, setDetailClosing] = useState(false);
   const [lastSwiped, setLastSwiped] = useState(null);
 
-  const { deck, popRecipe } = useRecipes(preferences ?? {});
+  const { deck, popRecipe, pushRecipe } = useRecipes(preferences ?? {});
   const { favorites, isFavorite, addFavorite, removeFavorite, toggleFavorite } = useFavorites(allRecipes);
 
   useEffect(() => {
@@ -118,6 +118,7 @@ const handleSwipe = useCallback((id, dir) => {
     onOpenDetail={openDetail} 
     lastSwiped={lastSwiped}        
     setLastSwiped={setLastSwiped}  
+    pushRecipe={pushRecipe}
   />
 )}
   />
