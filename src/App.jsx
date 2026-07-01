@@ -51,17 +51,17 @@ export default function App() {
     try { localStorage.setItem(PREFS_KEY, JSON.stringify(preferences)); } catch { /* ignore */ }
   }, [preferences]);
 
- const handleSwipe = useCallback((id, dir) => {
+const handleSwipe = useCallback((id, dir) => {
   const swiped = deck.find(r => r.id === id);
   if (swiped) setLastSwiped(swiped);
 
   popRecipe(id);
 
- 
-    if (recipe) {
-      toggleFavorite(recipe.id);
-    }
-  }, [deck, popRecipe, allRecipes, toggleFavorite]);
+  // Alleen toevoegen aan favorieten als er naar rechts ('right') geswiped is
+  if (swiped && dir === "right") {
+    toggleFavorite(swiped.id);
+  }
+}, [deck, popRecipe, toggleFavorite]);
   
       
 
@@ -145,6 +145,8 @@ export default function App() {
           onToggleFavorite={toggleFavoriteActive}
           closing={detailClosing}
         />
-      )}
+    
+  )}
     </>
-  )
+  );
+}
