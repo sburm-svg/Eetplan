@@ -126,7 +126,7 @@ export default function App() {
               pushRecipe={pushRecipe}
             />
           )}
-         {tab === "favorites" && (
+       {tab === "favorites" && (
             <FavoritesScreen favorites={favorites} onRemove={removeFavorite} onOpenDetail={openDetail} />
           )}
           {tab === "week" && (
