@@ -137,7 +137,7 @@ export default function App() {
     onRemoveDay={removeRecipeFromDay}
     onOpenDetail={openDetail}
   />
-)}
+
           )}
           {tab === "profile" && (
             showSettings ? (
