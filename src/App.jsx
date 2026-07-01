@@ -16,6 +16,7 @@ import ProfileScreen from "./screens/ProfileScreen.jsx";
 import SettingsScreen from "./screens/SettingsScreen.jsx";
 
 const PREFS_KEY = "kanen:preferences";
+const allRecipesData = getAllRecipes() || [];
 
 function loadPreferences() {
   try {
@@ -27,24 +28,26 @@ function loadPreferences() {
 }
 
 const TITLES = {
-  swipe: null, // Header shows a dynamic "X recepten" subtitle instead
+  swipe: null,
   favorites: "Bewaard",
   week: "Weekplan",
   profile: "Profiel",
 };
 
 export default function App() {
-  const allRecipes = getAllRecipes();
+  const allRecipes = allRecipesData;
 
   const [preferences, setPreferences] = useState(loadPreferences);
   const [tab, setTab] = useState("swipe");
   const [showSettings, setShowSettings] = useState(false);
   const [activeRecipe, setActiveRecipe] = useState(null);
   const [detailClosing, setDetailClosing] = useState(false);
- const [swipedHistory, setSwipedHistory] = useState([]); // Begint als lege lijst
+  
+  // Geschiedenis bijhouden als Array in plaats van losse variabele
+  const [swipedHistory, setSwipedHistory] = useState([]);
 
   const { deck, popRecipe, pushRecipe } = useRecipes(preferences ?? {});
-  const { favorites, isFavorite, addFavorite, removeFavorite, toggleFavorite } = useFavorites(allRecipes);
+  const { favorites = [], isFavorite, removeFavorite, toggleFavorite } = useFavorites(allRecipes);
 
   useEffect(() => {
     if (!preferences) return;
@@ -52,24 +55,18 @@ export default function App() {
   }, [preferences]);
 
   const handleSwipe = useCallback((id, dir) => {
-  const swiped = deck.find(r => r.id === id);
-  
-  // VOEG TOE AAN DE ARRAY: in plaats van setLastSwiped(swiped)
-  if (swiped) {
-    setSwipedHistory(prev => [...prev, swiped]);
-  }
+    const swiped = deck.find(r => r.id === id);
+    
+    if (swiped) {
+      setSwipedHistory(prev => [...prev, swiped]);
+    }
 
-  popRecipe(id);
+    popRecipe(id);
 
-  if (swiped && dir === "right") {
-    toggleFavorite(swiped.id);
-  }
-}, [deck, popRecipe, toggleFavorite]); // Merk op: setSwipedHistory hoeft niet in de dependency array omdat het een state-setter is
-  
-  
-  
-  
-      
+    if (swiped && dir === "right") {
+      toggleFavorite(swiped.id);
+    }
+  }, [deck, popRecipe, toggleFavorite]);
 
   const openDetail = useCallback((recipe) => {
     setDetailClosing(false);
@@ -102,9 +99,9 @@ export default function App() {
   }
 
   const headerSubtitle = tab === "swipe"
-    ? `${deck.length} recepten te ontdekken`
+    ? `${deck?.length ?? 0} recepten te ontdekken`
     : tab === "favorites"
-      ? `${favorites.length} bewaard`
+      ? `${favorites?.length ?? 0} bewaard`
       : undefined;
 
   return (
@@ -118,19 +115,14 @@ export default function App() {
 
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
           {tab === "swipe" && (
-
-  <SwipeScreen 
-    deck={deck} 
-    onSwipe={handleSwipe} 
-    onOpenDetail={openDetail} 
-    swipedHistory={swipedHistory}    // <-- Doorgeven
-    setSwipedHistory={setSwipedHistory} // <-- Doorgeven
-    pushRecipe={pushRecipe}
-  />
-)}
-  
-  />
-      
+            <SwipeScreen 
+              deck={deck} 
+              onSwipe={handleSwipe} 
+              onOpenDetail={openDetail} 
+              swipedHistory={swipedHistory}
+              setSwipedHistory={setSwipedHistory}
+              pushRecipe={pushRecipe}
+            />
           )}
           {tab === "favorites" && (
             <FavoritesScreen favorites={favorites} onRemove={removeFavorite} onOpenDetail={openDetail} />
@@ -152,7 +144,7 @@ export default function App() {
           )}
         </div>
 
-        <NavBar tab={tab} onTab={(t) => { setTab(t); setShowSettings(false); }} favCount={favorites.length} />
+        <NavBar tab={tab} onTab={(t) => { setTab(t); setShowSettings(false); }} favCount={favorites?.length ?? 0} />
       </div>
 
       {activeRecipe && (
@@ -163,8 +155,7 @@ export default function App() {
           onToggleFavorite={toggleFavoriteActive}
           closing={detailClosing}
         />
-    
-  )}
+      )}
     </>
   );
 }
