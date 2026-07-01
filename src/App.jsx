@@ -62,7 +62,7 @@ export default function App() {
       toggleFavorite(recipe.id);
     }
   }, [deck, popRecipe, allRecipes, toggleFavorite]);
-  };
+  
       
 
   const openDetail = useCallback((recipe) => {
