@@ -112,7 +112,12 @@ const handleSwipe = useCallback((id, dir) => {
 
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
           {tab === "swipe" && (
-            <SwipeScreen deck={deck} onSwipe={handleSwipe} onOpenDetail={openDetail} />
+  <SwipeScreen 
+    deck={deck} 
+    onSwipe={handleSwipe} 
+    onOpenDetail={openDetail} 
+    lastSwiped={lastSwiped} // 
+  />
           )}
           {tab === "favorites" && (
             <FavoritesScreen favorites={favorites} onRemove={removeFavorite} onOpenDetail={openDetail} />
