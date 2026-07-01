@@ -116,8 +116,12 @@ const handleSwipe = useCallback((id, dir) => {
     deck={deck} 
     onSwipe={handleSwipe} 
     onOpenDetail={openDetail} 
-    lastSwiped={lastSwiped} // 
+    lastSwiped={lastSwiped}        
+    setLastSwiped={setLastSwiped}  
   />
+)}
+  />
+      
           )}
           {tab === "favorites" && (
             <FavoritesScreen favorites={favorites} onRemove={removeFavorite} onOpenDetail={openDetail} />
