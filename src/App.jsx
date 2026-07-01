@@ -52,9 +52,18 @@ export default function App() {
   }, [preferences]);
 
   const handleSwipe = useCallback((id, dir) => {
-    popRecipe(id);
-    if (dir === "right") addFavorite(id);
-  }, [popRecipe, addFavorite]);
+  setDeck(prev => {
+    const swiped = prev.find(r => r.id === id);
+    if (swiped) setLastSwiped(swiped); // 👈 bewaren voor undo
+    return prev.filter(r => r.id !== id);
+  });
+
+  if (dir === "right") {
+    const recipe = RECIPES.find(r => r.id === id);
+    if (recipe) {
+      setFavorites(prev =>
+        prev.some(r => r.id === id) ? prev : [...prev, recipe]
+      );
 
   const openDetail = useCallback((recipe) => {
     setDetailClosing(false);
