@@ -41,7 +41,7 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [activeRecipe, setActiveRecipe] = useState(null);
   const [detailClosing, setDetailClosing] = useState(false);
-  const [lastSwiped, setLastSwiped] = useState(null);
+ const [swipedHistory, setSwipedHistory] = useState([]); // Begint als lege lijst
 
   const { deck, popRecipe, pushRecipe } = useRecipes(preferences ?? {});
   const { favorites, isFavorite, addFavorite, removeFavorite, toggleFavorite } = useFavorites(allRecipes);
@@ -50,14 +50,13 @@ export default function App() {
     if (!preferences) return;
     try { localStorage.setItem(PREFS_KEY, JSON.stringify(preferences)); } catch { /* ignore */ }
   }, [preferences]);
-
 const handleSwipe = useCallback((id, dir) => {
   const swiped = deck.find(r => r.id === id);
-  if (swiped) setLastSwiped(swiped);
+  // Voeg het recept toe aan de geschiedenis-lijst
+  if (swiped) setSwipedHistory(prev => [...prev, swiped]);
 
   popRecipe(id);
 
-  // Alleen toevoegen aan favorieten als er naar rechts ('right') geswiped is
   if (swiped && dir === "right") {
     toggleFavorite(swiped.id);
   }
@@ -112,15 +111,17 @@ const handleSwipe = useCallback((id, dir) => {
 
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
           {tab === "swipe" && (
+
   <SwipeScreen 
     deck={deck} 
     onSwipe={handleSwipe} 
     onOpenDetail={openDetail} 
-    lastSwiped={lastSwiped}        
-    setLastSwiped={setLastSwiped}  
+    swipedHistory={swipedHistory}    // <-- Doorgeven
+    setSwipedHistory={setSwipedHistory} // <-- Doorgeven
     pushRecipe={pushRecipe}
   />
 )}
+  
   />
       
           )}
