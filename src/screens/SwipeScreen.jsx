@@ -4,7 +4,6 @@ import SwipeCard from "../components/SwipeCard.jsx";
 import ActionButton from "../components/ActionButton.jsx";
 
 export default function SwipeScreen({ deck, onSwipe, onOpenDetail, swipedHistory = [], setSwipedHistory, pushRecipe }) {
-
   const topCardRef = useRef(null);
 
   const triggerBtn = (dir) => {
@@ -18,6 +17,19 @@ export default function SwipeScreen({ deck, onSwipe, onOpenDetail, swipedHistory
         <div style={{ width: 90, height: 90, borderRadius: "50%", background: T.creamDark, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 42 }}>✨</div>
         <p style={{ fontSize: 18, fontWeight: 700, color: T.forest }}>Alles gezien!</p>
         <p style={{ fontSize: 14, color: T.muted }}>Bekijk je bewaarde recepten</p>
+        {/* Extra terugknop als het deck leeg is om terug te kunnen gaan */}
+        <ActionButton
+          icon="↩️"
+          label="Geschiedenis herstellen"
+          color={T.sand}
+          onClick={() => {
+            if (swipedHistory.length === 0) return;
+            const lastRecipe = swipedHistory[swipedHistory.length - 1];
+            pushRecipe(lastRecipe);
+            setSwipedHistory(prev => prev.slice(0, -1));
+          }}
+          disabled={swipedHistory.length === 0}
+        />
       </div>
     );
   }
@@ -51,28 +63,18 @@ export default function SwipeScreen({ deck, onSwipe, onOpenDetail, swipedHistory
         <ActionButton icon="✕" label="Overslaan" color={T.red} onClick={() => triggerBtn("left")} disabled={deck.length === 0} />
         <ActionButton icon="♥" label="Bewaren" color={T.green} onClick={() => triggerBtn("right")} disabled={deck.length === 0} />
         <ActionButton
-  icon="↩️"
-  label="Terug"
-  color={T.sand}
-  onClick={() => {
-    if (swipedHistory.length === 0) return; // Geen geschiedenis? Doe niks.
+          icon="↩️"
+          label="Terug"
+          color={T.sand}
+          onClick={() => {
+            if (swipedHistory.length === 0) return;
 
-    // Pak het allerlaatste recept uit de geschiedenis-lijst
-    const lastRecipe = swipedHistory[swipedHistory.length - 1];
-
-    // Zet hem terug bovenaan het deck
-    pushRecipe(lastRecipe);
-
-    // Verwijder dit laatste recept uit de geschiedenis-lijst
-    setSwipedHistory(prev => prev.slice(0, -1));
-  }}
-  // De knop is uitgeschakeld als de geschiedenis-lijst leeg is
-  disabled={swipedHistory.length === 0}
-/>
-  }}
-          
-  disabled={!lastSwiped}
-/>
+            const lastRecipe = swipedHistory[swipedHistory.length - 1];
+            pushRecipe(lastRecipe);
+            setSwipedHistory(prev => prev.slice(0, -1));
+          }}
+          disabled={swipedHistory.length === 0}
+        />
       </div>
     </div>
   );
