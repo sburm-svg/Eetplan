@@ -63,7 +63,7 @@ export default function App() {
     }
   }, [deck, popRecipe, allRecipes, toggleFavorite]);
   };
-      );
+      
 
   const openDetail = useCallback((recipe) => {
     setDetailClosing(false);
