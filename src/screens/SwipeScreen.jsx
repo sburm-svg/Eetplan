@@ -49,6 +49,18 @@ export default function SwipeScreen({ deck, onSwipe, onOpenDetail }) {
       <div style={{ display: "flex", justifyContent: "center", gap: 24, paddingBottom: 24 }}>
         <ActionButton icon="✕" label="Overslaan" color={T.red} onClick={() => triggerBtn("left")} disabled={deck.length === 0} />
         <ActionButton icon="♥" label="Bewaren" color={T.green} onClick={() => triggerBtn("right")} disabled={deck.length === 0} />
+        <ActionButton
+  icon="↩️"
+  label="Terug"
+  color={T.sand}
+  onClick={() => {
+    if (!lastSwiped) return;
+
+    setDeck(prev => [lastSwiped, ...prev]);
+    setLastSwiped(null);
+  }}
+  disabled={!lastSwiped}
+/>
       </div>
     </div>
   );
