@@ -3,7 +3,7 @@ import { T } from "../theme.js";
 import SwipeCard from "../components/SwipeCard.jsx";
 import ActionButton from "../components/ActionButton.jsx";
 
-export default function SwipeScreen({ deck, onSwipe, onOpenDetail, lastSwiped, setLastSwiped, pushRecipe }) {
+export default function SwipeScreen({ deck, onSwipe, onOpenDetail, swipedHistory = [], setSwipedHistory, pushRecipe }) {
 
   const topCardRef = useRef(null);
 
@@ -51,17 +51,23 @@ export default function SwipeScreen({ deck, onSwipe, onOpenDetail, lastSwiped, s
         <ActionButton icon="✕" label="Overslaan" color={T.red} onClick={() => triggerBtn("left")} disabled={deck.length === 0} />
         <ActionButton icon="♥" label="Bewaren" color={T.green} onClick={() => triggerBtn("right")} disabled={deck.length === 0} />
         <ActionButton
-
   icon="↩️"
   label="Terug"
   color={T.sand}
   onClick={() => {
-    if (!lastSwiped) return;
+    if (swipedHistory.length === 0) return; // Geen geschiedenis? Doe niks.
 
-    pushRecipe(lastSwiped); // <-- Gebruik de nieuwe veilige functie!
-    setLastSwiped(null);    // Reset de lastSwiped state zodat je niet oneindig kunt teruggaan
+    // Pak het allerlaatste recept uit de geschiedenis-lijst
+    const lastRecipe = swipedHistory[swipedHistory.length - 1];
+
+    // Zet hem terug bovenaan het deck
+    pushRecipe(lastRecipe);
+
+    // Verwijder dit laatste recept uit de geschiedenis-lijst
+    setSwipedHistory(prev => prev.slice(0, -1));
   }}
-  disabled={!lastSwiped}
+  // De knop is uitgeschakeld als de geschiedenis-lijst leeg is
+  disabled={swipedHistory.length === 0}
 />
   }}
           
