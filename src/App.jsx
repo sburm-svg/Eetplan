@@ -3,6 +3,7 @@ import { GLOBAL_CSS, T } from "./theme.js";
 import { getAllRecipes } from "./services/recipeService.js";
 import { useRecipes } from "./hooks/useRecipes.js";
 import { useFavorites } from "./hooks/useFavorites.js";
+import { useWeekPlan } from "./hooks/useWeekPlan.js";
 
 import Header from "./components/Header.jsx";
 import NavBar from "./components/NavBar.jsx";
@@ -48,6 +49,7 @@ export default function App() {
 
   const { deck, popRecipe, pushRecipe } = useRecipes(preferences ?? {});
   const { favorites = [], isFavorite, removeFavorite, toggleFavorite } = useFavorites(allRecipes);
+  const { weekPlan, setRecipeForDay, removeRecipeFromDay } = useWeekPlan();
 
   useEffect(() => {
     if (!preferences) return;
@@ -127,8 +129,15 @@ export default function App() {
           {tab === "favorites" && (
             <FavoritesScreen favorites={favorites} onRemove={removeFavorite} onOpenDetail={openDetail} />
           )}
-          {tab === "week" && (
-            <WeekOverviewScreen favorites={favorites} />
+         {tab === "week" && (
+  <WeekOverviewScreen 
+    favorites={favorites} 
+    weekPlan={weekPlan}
+    onSetDay={setRecipeForDay}
+    onRemoveDay={removeRecipeFromDay}
+    onOpenDetail={openDetail}
+  />
+)}
           )}
           {tab === "profile" && (
             showSettings ? (
