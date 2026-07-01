@@ -3,7 +3,8 @@ import { T } from "../theme.js";
 import SwipeCard from "../components/SwipeCard.jsx";
 import ActionButton from "../components/ActionButton.jsx";
 
-export default function SwipeScreen({ deck, onSwipe, onOpenDetail }) {
+export default function SwipeScreen({ deck, onSwipe, onOpenDetail, lastSwiped, setLastSwiped, setDeck }) {
+
   const topCardRef = useRef(null);
 
   const triggerBtn = (dir) => {
