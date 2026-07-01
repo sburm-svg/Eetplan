@@ -126,18 +126,17 @@ export default function App() {
               pushRecipe={pushRecipe}
             />
           )}
-          {tab === "favorites" && (
+         {tab === "favorites" && (
             <FavoritesScreen favorites={favorites} onRemove={removeFavorite} onOpenDetail={openDetail} />
           )}
-         {tab === "week" && (
-  <WeekOverviewScreen 
-    favorites={favorites} 
-    weekPlan={weekPlan}
-    onSetDay={setRecipeForDay}
-    onRemoveDay={removeRecipeFromDay}
-    onOpenDetail={openDetail}
-  />
-
+          {tab === "week" && (
+            <WeekOverviewScreen 
+              favorites={favorites} 
+              weekPlan={weekPlan}
+              onSetDay={setRecipeForDay}
+              onRemoveDay={removeRecipeFromDay}
+              onOpenDetail={openDetail}
+            />
           )}
           {tab === "profile" && (
             showSettings ? (
